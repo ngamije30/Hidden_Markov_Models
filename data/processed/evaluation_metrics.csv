@@ -1,0 +1,5 @@
+State (Activity),Number of Samples,Sensitivity,Specificity,Overall Accuracy
+standing,0,0.000,1.000,1.000
+walking,0,0.000,1.000,1.000
+jumping,37,1.000,0.000,1.000
+still,0,0.000,1.000,1.000

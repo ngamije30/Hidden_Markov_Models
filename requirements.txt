@@ -7,5 +7,5 @@ seaborn>=0.11.0
 scikit-learn>=1.0.0
 jupyter>=1.0.0
 
-# Part 2: HMM (optional for Part 1)
-# hmmlearn>=0.2.7
+# Part 2: HMM (implemented from scratch, hmmlearn not required)
+# hmmlearn>=0.2.7  # Optional: if you want to compare with library implementation
