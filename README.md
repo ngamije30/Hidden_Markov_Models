@@ -212,8 +212,8 @@ See `requirements.txt` for complete list. Key dependencies:
 - matplotlib >= 3.4.0
 - seaborn >= 0.11.0
 
-## Contributing
+## Contributors
 
-- Jade Isimbi Tuyizere
-- Davy Ngamije Ruhumuliza
+- Jade ISIMBI TUYIZERE
+- Davy NGAMIJE RUHUMULIZA
 
