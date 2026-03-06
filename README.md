@@ -2,12 +2,12 @@
 
 A complete implementation of human activity recognition using Hidden Markov Models (HMMs) with smartphone sensor data (accelerometer and gyroscope).
 
-## 👥 Team Members
+##  Team Members
 
 - **Part 1** (Data Collection, Preprocessing, Feature Extraction): Jade ISIMBI TUZINDE
 - **Part 2** (HMM Implementation, Viterbi, Baum-Welch, Evaluation): Davy NGAMIJE RUHUMULIZA
 
-## 📋 Project Overview
+##  Project Overview
 
 This project implements a complete pipeline for recognizing human activities from smartphone sensor data using Hidden Markov Models. The system can classify four distinct activities:
 
@@ -18,14 +18,14 @@ This project implements a complete pipeline for recognizing human activities fro
 
 ### Key Features
 
-✅ **Data preprocessing** with sensor fusion (accelerometer + gyroscope)  
-✅ **Feature extraction** from time and frequency domains  
-✅ **HMM implementation from scratch** (Viterbi & Baum-Welch algorithms)  
-✅ **Supervised initialization** from labeled training data  
-✅ **Covariance regularization** for numerical stability  
-✅ **Complete evaluation** with confusion matrices and metrics  
+**Data preprocessing** with sensor fusion (accelerometer + gyroscope)  
+**Feature extraction** from time and frequency domains  
+**HMM implementation from scratch** (Viterbi & Baum-Welch algorithms)  
+**Supervised initialization** from labeled training data  
+**Covariance regularization** for numerical stability  
+**Complete evaluation** with confusion matrices and metrics  
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 Hidden_Markov_Models/
@@ -47,7 +47,7 @@ Hidden_Markov_Models/
 └── README.md
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -72,7 +72,7 @@ Hidden_Markov_Models/
    jupyter notebook notebooks/activity_recognition.ipynb
    ```
 
-## 📊 Pipeline Overview
+## Pipeline Overview
 
 ### Part 1: Data Collection & Feature Extraction
 
@@ -122,7 +122,7 @@ Hidden_Markov_Models/
    - Training convergence plots
    - Decoded sequence visualizations
 
-## 📈 Results
+## Results
 
 The trained HMM model achieves robust performance on unseen test data:
 
@@ -158,7 +158,7 @@ All output visualizations are saved to `data/processed/`.
 - Gyroscope: mean (x,y,z), variance (x,y,z), std, SMA
 - FFT: dominant frequency, spectral energy (per axis)
 
-## 📁 Data Files
+## Data Files
 
 ### Input
 - `raw_data/` and `raw_data2/`: Raw sensor recordings (Accelerometer.csv, Gyroscope.csv)
@@ -172,14 +172,14 @@ All output visualizations are saved to `data/processed/`.
 - `evaluation_metrics.csv`: Per-activity performance metrics
 - `*.png`: Visualization plots
 
-## 🛠️ Implementation Notes
+##  Implementation Notes
 
 - **From scratch**: HMM algorithms implemented using NumPy (no hmmlearn)
 - **Modularity**: Clean GaussianHMM class with docstrings
 - **Numerical stability**: Log-space computation, normalization, regularization
 - **Reproducibility**: Random seed control, saved models
 
-## 📖 Usage Example
+## Usage Example
 
 ```python
 import pickle
@@ -201,7 +201,7 @@ for obs_seq, true_labels in test_sequences:
     print(f"True: {true_labels}")
 ```
 
-## 📝 Requirements
+## Requirements
 
 See `requirements.txt` for complete list. Key dependencies:
 
@@ -212,19 +212,8 @@ See `requirements.txt` for complete list. Key dependencies:
 - matplotlib >= 3.4.0
 - seaborn >= 0.11.0
 
-## 🤝 Contributing
+## Contributing
 
-This is an academic project. For issues or questions, please contact the team members.
+- Jade Isimbi Tuyizere
+- Davy Ngamije Ruhumuliza
 
-## 📄 License
-
-This project is part of an academic assignment.
-
-## 🙏 Acknowledgments
-
-- Professor and course staff for project guidance
-- Smartphone sensor data collection using Physics Toolbox Sensor Suite app
-
----
-
-**Last Updated**: March 6, 2026
