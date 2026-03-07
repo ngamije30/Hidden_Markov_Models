@@ -1,219 +1,129 @@
 # Human Activity Recognition with Hidden Markov Models
 
-A complete implementation of human activity recognition using Hidden Markov Models (HMMs) with smartphone sensor data (accelerometer and gyroscope).
+This project implements **Human Activity Recognition (HAR)** using **Hidden Markov Models (HMMs)** and smartphone **accelerometer and gyroscope sensor data**.
 
-##  Team Members
+## Team Members
 
-- **Part 1** (Data Collection, Preprocessing, Feature Extraction): Jade ISIMBI TUZINDE
-- **Part 2** (HMM Implementation, Viterbi, Baum-Welch, Evaluation): Davy NGAMIJE RUHUMULIZA
+* **Part 1 – Data Collection & Feature Extraction:** Jade ISIMBI TUYIZERE
+* **Part 2 – HMM Implementation & Evaluation:** Davy NGAMIJE RUHUMULIZA
 
-##  Project Overview
+## Project Overview
 
-This project implements a complete pipeline for recognizing human activities from smartphone sensor data using Hidden Markov Models. The system can classify four distinct activities:
+The system recognizes four activities from smartphone sensor data:
 
-- **Standing**
-- **Walking** 
-- **Jumping**
-- **Still** (stationary)
+* Standing
+* Walking
+* Jumping
+* Still
 
-### Key Features
+The pipeline includes **data preprocessing, feature extraction, HMM training, and evaluation**.
 
-**Data preprocessing** with sensor fusion (accelerometer + gyroscope)  
-**Feature extraction** from time and frequency domains  
-**HMM implementation from scratch** (Viterbi & Baum-Welch algorithms)  
-**Supervised initialization** from labeled training data  
-**Covariance regularization** for numerical stability  
-**Complete evaluation** with confusion matrices and metrics  
+## Data Collection
+
+Sensor data was collected using **Sensor Logger** on two smartphones:
+
+* **iPhone 12 → `raw_data/` (training data)**
+* **iPhone X → `raw_data2/` (test data)**
+
+Sensors used:
+
+* Accelerometer (x, y, z)
+* Gyroscope (x, y, z)
+
+Each activity was recorded in **5–10 second segments**, totaling **~1.5 minutes per activity**.
+Raw sensor data (~100 Hz) was **resampled to 50 Hz** for processing.
 
 ## Project Structure
 
 ```
 Hidden_Markov_Models/
 ├── notebooks/
-│   ├── activity_recognition.ipynb          # Complete pipeline (Part 1 + Part 2)
-│   └── part2_hmm_implementation_and_evaluation.ipynb  # Standalone Part 2
+│   ├── activity_recognition.ipynb
+│   └── part2_hmm_implementation_and_evaluation.ipynb
 ├── data/
-│   ├── raw/                                # Raw sensor data (CSV files)
-│   │   ├── raw_data/                       # Training data recordings
-│   │   └── raw_data2/                      # Test data recordings
-│   └── processed/                          # Preprocessed data and outputs
-│       ├── train_observation_sequences.pkl
-│       ├── test_observation_sequences.pkl
-│       ├── trained_hmm_model.pkl
-│       ├── feature_names.npy
-│       ├── activity_to_id.npy
-│       └── *.png                           # Visualizations
+│   ├── raw/
+│   │   ├── raw_data/     # iPhone 12 recordings (training)
+│   │   └── raw_data2/    # iPhone X recordings (test)
+│   └── processed/
 ├── requirements.txt
 └── README.md
 ```
 
-## Getting Started
+## Setup
 
-### Prerequisites
+### Clone the repository
 
-- Python 3.8+
-- Jupyter Notebook
+```bash
+git clone https://github.com/ngamije30/Hidden_Markov_Models.git
+cd Hidden_Markov_Models
+```
 
-### Installation
+### Install dependencies
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/ngamije30/Hidden_Markov_Models.git
-   cd Hidden_Markov_Models
-   ```
+```bash
+pip install -r requirements.txt
+```
 
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Run the notebook
 
-3. **Run the notebook**
-   ```bash
-   jupyter notebook notebooks/activity_recognition.ipynb
-   ```
+```bash
+jupyter notebook notebooks/activity_recognition.ipynb
+```
 
-## Pipeline Overview
+## Pipeline
 
-### Part 1: Data Collection & Feature Extraction
+### Part 1: Data Processing
 
-1. **Data Loading**
-   - Load accelerometer and gyroscope CSV files
-   - Merge sensor data by timestamp
-   - Resample to target frequency (50 Hz)
+* Load accelerometer and gyroscope data
+* Resample to **50 Hz**
+* Apply **2-second sliding windows (50% overlap)**
+* Extract **time and frequency domain features**
+* Normalize features using **Z-score standardization**
 
-2. **Windowing**
-   - Sliding window approach (2-second windows, 50% overlap)
-   - Extract features per window
+### Part 2: HMM Implementation
 
-3. **Feature Engineering**
-   - **Time domain**: mean, variance, std, signal magnitude area (SMA), correlations
-   - **Frequency domain**: FFT-based features (dominant frequency, spectral energy)
-   - **Total**: 29-41 features per window
+* **4 hidden states** (one per activity)
+* **Gaussian emission probabilities**
 
-4. **Train/Test Split**
-   - Stratified split by activity
-   - Ensure all 4 activities represented
+Algorithms implemented from scratch:
 
-5. **Normalization**
-   - Z-score standardization
-   - Fit on training data only
+* Viterbi algorithm
+* Forward–Backward algorithm
+* Baum–Welch (EM) training
 
-### Part 2: HMM Implementation & Evaluation
+Key features:
 
-1. **Model Architecture**
-   - **States**: 4 hidden states (one per activity)
-   - **Observations**: Feature vectors from Part 1
-   - **Emissions**: Multivariate Gaussian per state
+* Supervised initialization from labeled data
+* Covariance regularization for numerical stability
+* Log-space computations to prevent underflow
 
-2. **Algorithms Implemented**
-   - **Viterbi**: Find most likely state sequence (O(T·N²) complexity)
-   - **Baum-Welch (EM)**: Parameter learning with convergence criterion (|ΔLL| < 1e-4)
-   - **Forward-Backward**: Compute state occupation probabilities
+## Evaluation
 
-3. **Key Implementation Features**
-   - Supervised initialization from labeled data
-   - Covariance regularization (ε·I) for numerical stability
-   - Log-space computation to prevent underflow
-   - Configurable hyperparameters (max_iter, tolerance)
+Model performance is evaluated using:
 
-4. **Evaluation Metrics**
-   - Confusion matrix (4×4)
-   - Accuracy, sensitivity, specificity per activity
-   - Training convergence plots
-   - Decoded sequence visualizations
+* Confusion matrix
+* Accuracy per activity
+* Training convergence plots
+* Decoded activity sequence visualizations
 
-## Results
+All results and plots are saved in:
 
-The trained HMM model achieves robust performance on unseen test data:
-
-- **Evaluation**: Confusion matrix showing classification accuracy across all 4 activities
-- **Convergence**: Typical convergence in 7-15 iterations
-- **Visualizations**: 
-  - Training log-likelihood convergence
-  - Transition probability matrix
-  - Emission parameters per state
-  - Decoded sequences (training & test)
-  - Confusion matrix heatmap
-
-All output visualizations are saved to `data/processed/`.
-
-## 🔬 Technical Details
-
-### HMM Parameters
-
-- **Transition Matrix (A)**: 4×4 matrix of state transition probabilities
-- **Emission Parameters (B)**: Gaussian (μ, Σ) per state
-- **Initial Probabilities (π)**: Starting state distribution
-
-### Training Configuration
-
-- **Initialization**: Supervised from labeled data statistics
-- **Max iterations**: 100
-- **Convergence tolerance**: 1e-4 (log-likelihood change)
-- **Regularization**: ε = 1e-6 added to covariances
-
-### Feature Set
-
-- Accelerometer: mean (x,y,z), variance (x,y,z), std, SMA, correlations
-- Gyroscope: mean (x,y,z), variance (x,y,z), std, SMA
-- FFT: dominant frequency, spectral energy (per axis)
-
-## Data Files
-
-### Input
-- `raw_data/` and `raw_data2/`: Raw sensor recordings (Accelerometer.csv, Gyroscope.csv)
-
-### Output
-- `train_observation_sequences.pkl`: Training sequences [(observations, labels), ...]
-- `test_observation_sequences.pkl`: Test sequences [(observations, labels), ...]
-- `trained_hmm_model.pkl`: Trained HMM model
-- `feature_names.npy`: List of feature names
-- `activity_to_id.npy`: Activity name to ID mapping
-- `evaluation_metrics.csv`: Per-activity performance metrics
-- `*.png`: Visualization plots
-
-##  Implementation Notes
-
-- **From scratch**: HMM algorithms implemented using NumPy (no hmmlearn)
-- **Modularity**: Clean GaussianHMM class with docstrings
-- **Numerical stability**: Log-space computation, normalization, regularization
-- **Reproducibility**: Random seed control, saved models
-
-## Usage Example
-
-```python
-import pickle
-import numpy as np
-from pathlib import Path
-
-# Load trained model
-with open("data/processed/trained_hmm_model.pkl", "rb") as f:
-    hmm = pickle.load(f)
-
-# Load test sequences
-with open("data/processed/test_observation_sequences.pkl", "rb") as f:
-    test_sequences = pickle.load(f)
-
-# Predict activities
-for obs_seq, true_labels in test_sequences:
-    predicted_labels = hmm.predict(obs_seq)
-    print(f"Predicted: {predicted_labels}")
-    print(f"True: {true_labels}")
+```
+data/processed/
 ```
 
 ## Requirements
 
-See `requirements.txt` for complete list. Key dependencies:
+Main libraries used:
 
-- numpy >= 1.21.0
-- pandas >= 1.3.0
-- scipy >= 1.7.0
-- scikit-learn >= 1.0.0
-- matplotlib >= 3.4.0
-- seaborn >= 0.11.0
+* numpy
+* pandas
+* scipy
+* scikit-learn
+* matplotlib
+* seaborn
 
 ## Contributors
 
-- Jade ISIMBI TUYIZERE
-- Davy NGAMIJE RUHUMULIZA
-
+* Jade ISIMBI TUYIZERE
+* Davy NGAMIJE RUHUMULIZA
