@@ -22,7 +22,8 @@ env/
 .DS_Store
 Thumbs.db
 
-# Optional: uncomment to avoid committing large processed outputs
-# data/processed/*.pkl
-# data/processed/*.npy
-# data/processed/*.csv
+# Processed data and generated outputs (large; regenerate from notebook)
+data/processed/*.pkl
+data/processed/*.npy
+data/processed/*.png
+data/processed/*.csv
