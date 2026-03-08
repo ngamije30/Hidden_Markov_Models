@@ -43,7 +43,7 @@ Hidden_Markov_Models/
 ├── data/
 │   ├── raw/
 │   │   ├── raw_data/     # iPhone 12 recordings (training)
-│   │   └── raw_data2/    # iPhone X recordings (test)
+│   │   └── raw_data2/    # iPhone 11 recordings (test)
 │   └── processed/
 ├── requirements.txt
 └── README.md
